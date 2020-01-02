@@ -2,13 +2,10 @@ package com.example.yhao.floatwindow;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
-import android.view.animation.BounceInterpolator;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.yhao.fixedfloatwindow.R;
