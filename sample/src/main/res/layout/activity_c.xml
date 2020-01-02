@@ -15,4 +15,16 @@
         android:onClick="back"
         android:text="返回" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:text="add"
+        android:onClick="add"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:text="get"
+        android:onClick="get"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
