@@ -8,6 +8,7 @@ import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.os.Build;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -210,9 +211,6 @@ public class IFloatWindowImpl extends IFloatWindow {
 
                                 if (newY < 0) {
                                     newY = 0;
-                                }
-                                if (newY > Util.getHasVirtualScreenHeight(mB.mApplicationContext) - v.getHeight()*1.5) {
-                                    newY = (int) (Util.getHasVirtualScreenHeight(mB.mApplicationContext) - v.getHeight()*1.5);
                                 }
 
                                 mFloatView.updateXY(newX, newY);
