@@ -1,12 +1,14 @@
 package com.example.yhao.floatwindow;
 
+import java.io.Serializable;
+
 /**
  * 会话实体类
  *
  * @author xxl.
  * @date 2020/01/02.
  */
-public class ConversationEntity {
+public class ConversationEntity implements Serializable {
 
     //region: 成员变量
 

@@ -1,5 +1,6 @@
 package com.example.yhao.floatwindow;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,7 +79,11 @@ public class D_Activity extends BaseActivity {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(D_Activity.this, "Click" + holder.mType.getText(), Toast.LENGTH_SHORT).show();
+                    ConversationEntity conversationEntity = mConversationEntities.get(position);
+                    Intent intent = new Intent(getApplicationContext(),E_Activity.class);
+                    intent.putExtra(E_Activity.CONVERSATION_INFO,conversationEntity);
+                    startActivity(intent);
+                    finish();
                 }
             });
             holder.mIvDelete.setOnClickListener(new View.OnClickListener() {

@@ -9,6 +9,7 @@ import com.yhao.floatwindow.FloatWindow;
 import com.yhao.floatwindow.IFloatWindow;
 
 import java.util.List;
+import java.util.Random;
 
 public class C_Activity extends BaseActivity {
 
@@ -30,7 +31,9 @@ public class C_Activity extends BaseActivity {
     public void add(View view) {
         if (mIFloatWindow != null) {
             FloatingImageView floatingImageView = (FloatingImageView) mIFloatWindow.getView();
-            ConversationEntity conversationEntity = ConversationEntity.obtain("https://avatars1.githubusercontent.com/u/24353536?s=460&v=4", 2);
+            Random random = new Random();
+            int conversationType = random.nextInt(100);
+            ConversationEntity conversationEntity = ConversationEntity.obtain("https://avatars1.githubusercontent.com/u/24353536?s=460&v=4", conversationType);
             if (floatingImageView == null) {
                 return;
             }

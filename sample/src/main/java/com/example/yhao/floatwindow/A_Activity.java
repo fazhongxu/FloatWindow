@@ -41,7 +41,7 @@ public class A_Activity extends AppCompatActivity {
             FloatWindow
                     .with(getApplicationContext())
                     .setView(floatingImageView)
-                    .setWidth(Screen.width, 0.13f) //设置悬浮控件宽高
+                    .setWidth(Screen.width, 0.13f)
                     .setHeight(Screen.width, 0.13f)
                     .setX(Screen.width, 0.87f)
                     .setY(Screen.height, 0.3f)
