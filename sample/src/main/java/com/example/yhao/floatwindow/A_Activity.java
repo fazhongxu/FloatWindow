@@ -18,7 +18,7 @@ import com.yhao.floatwindow.ViewStateListener;
 
 import java.util.List;
 
-public class A_Activity extends AppCompatActivity {
+public class A_Activity extends BaseActivity {
 
     private static final String TAG = "aaa";
 
@@ -80,8 +80,12 @@ public class A_Activity extends AppCompatActivity {
 
     private ViewStateListener mViewStateListener = new ViewStateListener() {
         @Override
-        public void onPositionUpdate(int x, int y) {
-            Log.d(TAG, "onPositionUpdate: x=" + x + " y=" + y);
+        public void onPositionUpdate(boolean isClick,int x, int y) {
+            Log.d(TAG, "onPositionUpdate: isClick="+isClick +"--x="+ x + " y=" + y);
+            if (!isClick) {
+                IFloatWindow iFloatWindow = FloatWindow.get();
+                showFloatingDeleteView();
+            }
         }
 
         @Override
@@ -119,6 +123,7 @@ public class A_Activity extends AppCompatActivity {
         @Override
         public void onMoveAnimEnd() {
             Log.d(TAG, "onMoveAnimEnd");
+            hideFloatingDeleteView();
         }
 
         @Override

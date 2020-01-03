@@ -6,7 +6,7 @@ package com.yhao.floatwindow;
  */
 public class ViewStateListenerAdapter implements ViewStateListener{
     @Override
-    public void onPositionUpdate(int x, int y) {
+    public void onPositionUpdate(boolean isClick,int x, int y) {
 
     }
 

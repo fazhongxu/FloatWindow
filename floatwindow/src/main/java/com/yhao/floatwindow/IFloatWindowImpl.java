@@ -190,6 +190,10 @@ public class IFloatWindowImpl extends IFloatWindow {
                 getView().setOnTouchListener(new View.OnTouchListener() {
                     float lastX, lastY, changeX, changeY;
                     int newX, newY;
+                    long currentTimeMillis;
+                    long moveXDistance;
+                    long moveYDistance;
+                    boolean isClick;
 
                     @SuppressLint("ClickableViewAccessibility")
                     @Override
@@ -202,6 +206,8 @@ public class IFloatWindowImpl extends IFloatWindow {
                                 lastX = event.getRawX();
                                 lastY = event.getRawY();
                                 cancelAnimator();
+                                currentTimeMillis = System.currentTimeMillis();
+                                moveXDistance = moveYDistance = 0;
                                 break;
                             case MotionEvent.ACTION_MOVE:
                                 changeX = event.getRawX() - lastX;
@@ -214,8 +220,13 @@ public class IFloatWindowImpl extends IFloatWindow {
                                 }
 
                                 mFloatView.updateXY(newX, newY);
+                                long moveTime = System.currentTimeMillis() - currentTimeMillis;
+                                moveXDistance+= Math.abs(event.getRawX() - downX);
+                                moveYDistance+= Math.abs(event.getRawX() - downY);
+
+                                isClick = moveTime < 200 && (moveXDistance < 20 || moveYDistance < 20);
                                 if (mB.mViewStateListener != null) {
-                                    mB.mViewStateListener.onPositionUpdate(newX, newY);
+                                    mB.mViewStateListener.onPositionUpdate(isClick,newX, newY);
                                 }
                                 lastX = event.getRawX();
                                 lastY = event.getRawY();
@@ -237,7 +248,7 @@ public class IFloatWindowImpl extends IFloatWindow {
                                                 int x = (int) animation.getAnimatedValue();
                                                 mFloatView.updateX(x);
                                                 if (mB.mViewStateListener != null) {
-                                                    mB.mViewStateListener.onPositionUpdate(x, (int) upY);
+                                                    mB.mViewStateListener.onPositionUpdate(true,x, (int) upY);
                                                 }
                                             }
                                         });
@@ -254,7 +265,7 @@ public class IFloatWindowImpl extends IFloatWindow {
                                                 int y = (int) animation.getAnimatedValue("y");
                                                 mFloatView.updateXY(x, y);
                                                 if (mB.mViewStateListener != null) {
-                                                    mB.mViewStateListener.onPositionUpdate(x, y);
+                                                    mB.mViewStateListener.onPositionUpdate(true,x, y);
                                                 }
                                             }
                                         });

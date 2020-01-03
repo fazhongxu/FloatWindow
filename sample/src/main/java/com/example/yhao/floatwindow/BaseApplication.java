@@ -1,12 +1,17 @@
 package com.example.yhao.floatwindow;
 
+import android.app.Activity;
 import android.app.Application;
 import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.yhao.fixedfloatwindow.R;
 import com.yhao.floatwindow.FloatWindow;
@@ -15,13 +20,23 @@ import com.yhao.floatwindow.PermissionListener;
 import com.yhao.floatwindow.Screen;
 import com.yhao.floatwindow.ViewStateListener;
 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Created by yhao on 2017/12/18.
  * https://github.com/yhaolpz
  */
 
-public class BaseApplication extends Application {
+public class BaseApplication extends Application implements Application.ActivityLifecycleCallbacks {
+    static LinkedList<Activity> mActivities = new LinkedList<>();
 
+
+    public static Activity getTopActivity() {
+        return mActivities.getLast();
+    }
 
     private static final String TAG = "FloatWindow";
 
@@ -29,6 +44,43 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         BlurUtil.init(this);
+
+        registerActivityLifecycleCallbacks(this);
+    }
+
+    @Override
+    public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
+        mActivities.addLast(activity);
+    }
+
+    @Override
+    public void onActivityStarted(@NonNull Activity activity) {
+
+    }
+
+    @Override
+    public void onActivityResumed(@NonNull Activity activity) {
+
+    }
+
+    @Override
+    public void onActivityPaused(@NonNull Activity activity) {
+
+    }
+
+    @Override
+    public void onActivityStopped(@NonNull Activity activity) {
+
+    }
+
+    @Override
+    public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {
+
+    }
+
+    @Override
+    public void onActivityDestroyed(@NonNull Activity activity) {
+        mActivities.remove(activity);
     }
 //
 //        ImageView imageView = new ImageView(getApplicationContext());
