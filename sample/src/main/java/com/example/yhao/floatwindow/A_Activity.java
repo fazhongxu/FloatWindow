@@ -84,7 +84,8 @@ public class A_Activity extends BaseActivity {
             Log.d(TAG, "onPositionUpdate: isClick="+isClick +"--x="+ x + " y=" + y);
             if (!isClick) {
                 IFloatWindow iFloatWindow = FloatWindow.get();
-                showFloatingDeleteView();
+//                y += iFloatWindow.getView().getHeight()/2;
+                showFloatingDeleteView(x,y);
             }
         }
 

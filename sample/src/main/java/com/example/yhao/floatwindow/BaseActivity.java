@@ -1,10 +1,12 @@
 package com.example.yhao.floatwindow;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.LayoutInflaterCompat;
 
 import android.app.Activity;
 import android.content.ComponentName;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,12 +31,24 @@ public class BaseActivity extends AppCompatActivity {
 
     /**
      * 显示悬浮窗删除View
+     * @param x
+     * @param y
      */
-    protected void showFloatingDeleteView() {
+    protected void showFloatingDeleteView(int x, int y) {
         Activity topActivity = BaseApplication.getTopActivity();
         if (mFloatingPopupWindow == null || topActivity.isFinishing()) {
             mFloatingPopupWindow = new FloatingPopupWindow(topActivity);
         }
+        View vDelete = mFloatingPopupWindow.getContentView().findViewById(R.id.iv_floating_delete);
+        Rect rect = new Rect(vDelete.getLeft(), vDelete.getTop(), vDelete.getRight(), vDelete.getBottom());
+        boolean contains = rect.contains(x, y);
+        if (contains) {
+            vDelete.setBackgroundResource(R.drawable.shape_floating_delete_confirm_bg);
+        }else {
+            vDelete.setBackgroundResource(R.drawable.shape_floating_delete_bg);
+        }
+
+        Log.e("aaa", "showFloatingDeleteView: "+contains);
         if (mFloatingPopupWindow.isShowing()) {
             return;
         }
