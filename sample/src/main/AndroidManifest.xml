@@ -22,6 +22,8 @@
         <activity android:name="com.example.yhao.floatwindow.B_Activity" />
         <activity android:name="com.example.yhao.floatwindow.C_Activity" />
         <activity android:name="com.example.yhao.floatwindow.BaseActivity"/>
+        <activity android:name="com.example.yhao.floatwindow.D_Activity"
+            android:theme="@style/HalfTransparent"/>
     </application>
 
 </manifest>

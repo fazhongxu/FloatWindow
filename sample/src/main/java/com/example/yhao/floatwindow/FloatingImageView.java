@@ -51,6 +51,13 @@ public class FloatingImageView extends AppCompatImageView {
         mConversationEntities.add(conversationEntity);
     }
 
+    public boolean removeConversationEntity(ConversationEntity conversationEntity) {
+        if (mConversationEntities.contains(conversationEntity)) {
+            return mConversationEntities.remove(conversationEntity);
+        }
+        return false;
+    }
+
     /**
      * 获取会话实体
      *

@@ -59,7 +59,8 @@ public class A_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 List<ConversationEntity> conversationEntities = floatingImageView.getConversationEntities();
-                Toast.makeText(A_Activity.this, "onClick"+conversationEntities.size(),Toast.LENGTH_SHORT).show();
+//                Toast.makeText(A_Activity.this, "onClick"+conversationEntities.size(),Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(),D_Activity.class));
             }
         });
 
@@ -86,6 +87,18 @@ public class A_Activity extends AppCompatActivity {
         @Override
         public void onShow() {
             Log.d(TAG, "onShow");
+            IFloatWindow iFloatWindow = FloatWindow.get();
+            if (iFloatWindow == null) {
+                return;
+            }
+            FloatingImageView floatingImageView = (FloatingImageView) iFloatWindow.getView();
+            if (floatingImageView== null) {
+                return;
+            }
+            List<ConversationEntity> conversationEntities = floatingImageView.getConversationEntities();
+            if (conversationEntities == null || conversationEntities.size() == 0) {
+                iFloatWindow.hide();
+            }
         }
 
         @Override

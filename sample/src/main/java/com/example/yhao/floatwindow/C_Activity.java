@@ -35,6 +35,7 @@ public class C_Activity extends BaseActivity {
                 return;
             }
             floatingImageView.addConversationEntity(conversationEntity);
+            mIFloatWindow.show();
             Toast.makeText(this, "添加成功"+floatingImageView.getConversationEntities().size(), Toast.LENGTH_SHORT).show();
         }
 
