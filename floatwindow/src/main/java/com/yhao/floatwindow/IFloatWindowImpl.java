@@ -28,10 +28,10 @@ public class IFloatWindowImpl extends IFloatWindow {
     private boolean once = true;
     private ValueAnimator mAnimator;
     private TimeInterpolator mDecelerateInterpolator;
-    private float downX;
-    private float downY;
-    private float upX;
-    private float upY;
+    private int downX;
+    private int downY;
+    private int upX;
+    private int upY;
     private boolean mClick = false;
     private int mSlop;
 
@@ -187,7 +187,7 @@ public class IFloatWindowImpl extends IFloatWindow {
                 break;
             default:
                 getView().setOnTouchListener(new View.OnTouchListener() {
-                    float lastX, lastY, changeX, changeY;
+                    int lastX, lastY, changeX, changeY;
                     int newX, newY;
 
                     @SuppressLint("ClickableViewAccessibility")
@@ -196,17 +196,19 @@ public class IFloatWindowImpl extends IFloatWindow {
 
                         switch (event.getAction()) {
                             case MotionEvent.ACTION_DOWN:
-                                downX = event.getRawX();
-                                downY = event.getRawY();
-                                lastX = event.getRawX();
-                                lastY = event.getRawY();
+                                downX = (int) event.getRawX();
+                                downY = (int) event.getRawY();
+                                lastX = (int) event.getRawX();
+                                lastY = (int) event.getRawY();
                                 cancelAnimator();
                                 break;
                             case MotionEvent.ACTION_MOVE:
-                                changeX = event.getRawX() - lastX;
-                                changeY = event.getRawY() - lastY;
-                                newX = (int) (mFloatView.getX() + changeX);
-                                newY = (int) (mFloatView.getY() + changeY);
+                                int moveX = (int) event.getRawX();
+                                int moveY = (int) event.getRawY();
+                                changeX = moveX - lastX;
+                                changeY = moveY - lastY;
+                                newX = mFloatView.getX() + changeX;
+                                newY = mFloatView.getY() + changeY;
 
                                 if (newY < 0) {
                                     newY = 0;
@@ -219,12 +221,12 @@ public class IFloatWindowImpl extends IFloatWindow {
                                 if (mB.mViewStateListener != null) {
                                     mB.mViewStateListener.onPositionUpdate(newX, newY);
                                 }
-                                lastX = event.getRawX();
-                                lastY = event.getRawY();
+                                lastX = moveX;
+                                lastY = moveY;
                                 break;
                             case MotionEvent.ACTION_UP:
-                                upX = event.getRawX();
-                                upY = event.getRawY();
+                                upX = (int) event.getRawX();
+                                upY = (int) event.getRawY();
                                 mClick = (Math.abs(upX - downX) > mSlop) || (Math.abs(upY - downY) > mSlop);
                                 switch (mB.mMoveType) {
                                     case MoveType.slide:
