@@ -39,16 +39,7 @@ public class BaseActivity extends AppCompatActivity {
         if (mFloatingPopupWindow == null || topActivity.isFinishing()) {
             mFloatingPopupWindow = new FloatingPopupWindow(topActivity);
         }
-        View vDelete = mFloatingPopupWindow.getContentView().findViewById(R.id.iv_floating_delete);
-        Rect rect = new Rect(vDelete.getLeft(), vDelete.getTop(), vDelete.getRight(), vDelete.getBottom());
-        boolean contains = rect.contains(x, y);
-        if (contains) {
-            vDelete.setBackgroundResource(R.drawable.shape_floating_delete_confirm_bg);
-        }else {
-            vDelete.setBackgroundResource(R.drawable.shape_floating_delete_bg);
-        }
-
-        Log.e("aaa", "showFloatingDeleteView: "+contains);
+        mFloatingPopupWindow.contains(x,y);
         if (mFloatingPopupWindow.isShowing()) {
             return;
         }
