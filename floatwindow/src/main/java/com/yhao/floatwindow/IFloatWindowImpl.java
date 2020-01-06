@@ -124,6 +124,11 @@ public class IFloatWindowImpl extends IFloatWindow {
     }
 
     @Override
+    public void setDestroyTag(boolean isDestroy) {
+        mFloatLifecycle.setDestroyTag(isDestroy);
+    }
+
+    @Override
     public void updateX(int x) {
         checkMoveType();
         mB.xOffset = x;

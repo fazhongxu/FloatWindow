@@ -33,7 +33,8 @@ class FloatLifecycle extends BroadcastReceiver implements Application.ActivityLi
     private LifecycleListener mLifecycleListener;
     private static ResumedListener sResumedListener;
     private static int num = 0;
-
+    private static boolean mIsFirstInit = true;
+    private boolean mIsDestroy = false;
 
     FloatLifecycle(Context applicationContext, boolean showFlag, Class[] activities, LifecycleListener lifecycleListener) {
         this.showFlag = showFlag;
@@ -41,8 +42,11 @@ class FloatLifecycle extends BroadcastReceiver implements Application.ActivityLi
         num++;
         mLifecycleListener = lifecycleListener;
         mHandler = new Handler();
-        ((Application) applicationContext).registerActivityLifecycleCallbacks(this);
-        applicationContext.registerReceiver(this, new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
+        if (mIsFirstInit) {
+            mIsFirstInit = false;
+            ((Application) applicationContext).registerActivityLifecycleCallbacks(this);
+            applicationContext.registerReceiver(this, new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
+        }
     }
 
     public static void setResumedListener(ResumedListener resumedListener) {
@@ -72,7 +76,7 @@ class FloatLifecycle extends BroadcastReceiver implements Application.ActivityLi
             }
         }
         resumeCount++;
-        if (needShow(activity)) {
+        if (needShow(activity) && !mIsDestroy) {
             mLifecycleListener.onShow();
         } else {
             mLifecycleListener.onHide();
@@ -139,5 +143,7 @@ class FloatLifecycle extends BroadcastReceiver implements Application.ActivityLi
 
     }
 
-
+    public void setDestroyTag(boolean isDestroy) {
+        mIsDestroy = isDestroy;
+    }
 }

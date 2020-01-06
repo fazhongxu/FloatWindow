@@ -69,6 +69,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void deleteIfNecessary() {
         if (mDeleteIfNecessary) {
             FloatWindow.destroy();
+            mDeleteIfNecessary = false;
         }
     }
 }

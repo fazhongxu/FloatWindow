@@ -50,8 +50,10 @@ public class FloatWindow {
         if (mFloatWindowMap == null || !mFloatWindowMap.containsKey(tag)) {
             return;
         }
-        mFloatWindowMap.get(tag).dismiss();
-        mFloatWindowMap.remove(tag);
+
+        mFloatWindowMap.get(tag).hide();
+        mFloatWindowMap.get(tag).setDestroyTag(true);
+        //mFloatWindowMap.remove(tag);
     }
 
     public static class B {
