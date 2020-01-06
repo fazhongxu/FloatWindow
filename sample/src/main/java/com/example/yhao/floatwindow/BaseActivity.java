@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.yhao.fixedfloatwindow.R;
+import com.yhao.floatwindow.FloatWindow;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -24,6 +25,11 @@ public class BaseActivity extends AppCompatActivity {
      */
     private FloatingPopupWindow mFloatingPopupWindow;
 
+    /**
+     * 是否删除悬浮窗
+     */
+    private boolean mDeleteIfNecessary;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +37,7 @@ public class BaseActivity extends AppCompatActivity {
 
     /**
      * 显示悬浮窗删除View
+     *
      * @param x
      * @param y
      */
@@ -39,7 +46,7 @@ public class BaseActivity extends AppCompatActivity {
         if (mFloatingPopupWindow == null || topActivity.isFinishing()) {
             mFloatingPopupWindow = new FloatingPopupWindow(topActivity);
         }
-        mFloatingPopupWindow.contains(x,y);
+        mDeleteIfNecessary = mFloatingPopupWindow.contains(x, y);
         if (mFloatingPopupWindow.isShowing()) {
             return;
         }
@@ -47,12 +54,21 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * 隐藏悬浮窗删除的View
+     * 隐藏删除悬浮窗的View
      */
     protected void hideFloatingDeleteView() {
         if (mFloatingPopupWindow != null) {
             mFloatingPopupWindow.dismiss();
             mFloatingPopupWindow = null;
+        }
+    }
+
+    /**
+     * 如果需要删除悬浮窗 则删除
+     */
+    protected void deleteIfNecessary() {
+        if (mDeleteIfNecessary) {
+            FloatWindow.destroy();
         }
     }
 }

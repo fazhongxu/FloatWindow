@@ -2,7 +2,9 @@ package com.example.yhao.floatwindow;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -60,10 +62,9 @@ public class A_Activity extends BaseActivity {
             public void onClick(View v) {
                 List<ConversationEntity> conversationEntities = floatingImageView.getConversationEntities();
 //                Toast.makeText(A_Activity.this, "onClick"+conversationEntities.size(),Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(),D_Activity.class));
+                startActivity(new Intent(getApplicationContext(), D_Activity.class));
             }
         });
-
     }
 
     private PermissionListener mPermissionListener = new PermissionListener() {
@@ -80,12 +81,12 @@ public class A_Activity extends BaseActivity {
 
     private ViewStateListener mViewStateListener = new ViewStateListener() {
         @Override
-        public void onPositionUpdate(boolean isClick,int x, int y) {
-            Log.d(TAG, "onPositionUpdate: isClick="+isClick +"--x="+ x + " y=" + y);
+        public void onPositionUpdate(boolean isClick, int x, int y) {
+            Log.d(TAG, "onPositionUpdate: isClick=" + isClick + "--x=" + x + " y=" + y);
             if (!isClick) {
                 IFloatWindow iFloatWindow = FloatWindow.get();
 //                y += iFloatWindow.getView().getHeight()/2;
-                showFloatingDeleteView(x,y);
+                showFloatingDeleteView(x, y);
             }
         }
 
@@ -97,7 +98,7 @@ public class A_Activity extends BaseActivity {
                 return;
             }
             FloatingImageView floatingImageView = (FloatingImageView) iFloatWindow.getView();
-            if (floatingImageView== null) {
+            if (floatingImageView == null) {
                 return;
             }
             List<ConversationEntity> conversationEntities = floatingImageView.getConversationEntities();
@@ -119,6 +120,7 @@ public class A_Activity extends BaseActivity {
         @Override
         public void onMoveAnimStart() {
             Log.d(TAG, "onMoveAnimStart");
+            deleteIfNecessary();
         }
 
         @Override

@@ -16,8 +16,24 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:background="@drawable/shape_floating_delete_bg"
-            android:visibility="visible" >
+            android:visibility="visible">
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_delete_normal" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_delete"
+                android:layout_centerHorizontal="true"
+                android:text="@string/ui_drag_here_to_delete"
+                android:textColor="@android:color/white" />
 
         </RelativeLayout>
 
