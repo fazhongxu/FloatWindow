@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.yhao.fixedfloatwindow.R;
+import com.lzf.easyfloat.EasyFloat;
 import com.yhao.floatwindow.FloatWindow;
 import com.yhao.floatwindow.MoveType;
 import com.yhao.floatwindow.PermissionListener;
@@ -46,6 +47,9 @@ public class BaseApplication extends Application implements Application.Activity
         BlurUtil.init(this);
 
         registerActivityLifecycleCallbacks(this);
+
+        EasyFloat.init(this, true);
+
     }
 
     @Override

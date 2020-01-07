@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.yhao.fixedfloatwindow.R;
+import com.lzf.easyfloat.EasyFloat;
 import com.yhao.floatwindow.FloatWindow;
 import com.yhao.floatwindow.IFloatWindow;
 
@@ -41,7 +42,15 @@ public class D_Activity extends BaseActivity {
         });
         Adapter adapter = new Adapter();
 
-        IFloatWindow iFloatWindow = FloatWindow.get();
+        View view = EasyFloat.getAppFloatView();
+        FloatingImageView floatingImageView = view.findViewById(R.id.iv_floating);
+        if (floatingImageView != null) {
+            List<ConversationEntity> conversationEntities = floatingImageView.getConversationEntities();
+            adapter.setConversationEntities(conversationEntities);
+            recyclerView.setAdapter(adapter);
+        }
+
+       /* IFloatWindow iFloatWindow = FloatWindow.get();
         if (iFloatWindow == null) {
             finish();
             return;
@@ -50,10 +59,10 @@ public class D_Activity extends BaseActivity {
         if (floatingImageView == null) {
             finish();
             return;
-        }
-        List<ConversationEntity> conversationEntities = floatingImageView.getConversationEntities();
-        adapter.setConversationEntities(conversationEntities);
-        recyclerView.setAdapter(adapter);
+        }*/
+        //List<ConversationEntity> conversationEntities = floatingImageView.getConversationEntities();
+//        adapter.setConversationEntities(conversationEntities);
+//        recyclerView.setAdapter(adapter);
     }
 
     private class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
@@ -89,11 +98,12 @@ public class D_Activity extends BaseActivity {
             holder.mIvDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    IFloatWindow floatWindow = FloatWindow.get();
-                    if (floatWindow == null) {
+//                    IFloatWindow floatWindow = FloatWindow.get();
+                    View view = EasyFloat.getAppFloatView();
+                    if (view == null) {
                         return;
                     }
-                    FloatingImageView floatingImageView = (FloatingImageView) floatWindow.getView();
+                    FloatingImageView floatingImageView = view.findViewById(R.id.iv_floating);
                     if (floatingImageView == null) {
                         return;
                     }

@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.yhao.fixedfloatwindow.R;
+import com.lzf.easyfloat.EasyFloat;
 import com.yhao.floatwindow.FloatWindow;
 
 public class BaseActivity extends AppCompatActivity {
@@ -68,7 +69,9 @@ public class BaseActivity extends AppCompatActivity {
      */
     protected void deleteIfNecessary() {
         if (mDeleteIfNecessary) {
-            FloatWindow.destroy();
+//            FloatWindow.destroy();
+            EasyFloat.hideAppFloat();
+            EasyFloat.dismissAppFloat();
             mDeleteIfNecessary = false;
         }
     }
