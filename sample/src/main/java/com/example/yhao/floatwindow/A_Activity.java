@@ -1,11 +1,24 @@
 package com.example.yhao.floatwindow;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.LayoutTransition;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.widget.RelativeLayout;
+import android.widget.ViewAnimator;
+
+import androidx.customview.widget.ViewDragHelper;
 
 import com.example.yhao.fixedfloatwindow.R;
 import com.lzf.easyfloat.EasyFloat;
@@ -27,13 +40,62 @@ public class A_Activity extends BaseActivity {
     private static final String TAG = "aaa";
 
     private static final String FLOATING_TAG = "floating";
+    private FloatingCreateView mFloatingCreateView;
+    private int mTranslationX;
+    private int mScreenWidth;
+    private ViewGroup.LayoutParams mLayoutParams;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_a);
         setTitle("A");
-        create();
+//        create();
+
+        ViewGroup decorView = (ViewGroup) getWindow().getDecorView();
+
+        mFloatingCreateView = new FloatingCreateView(this);
+        decorView.addView(mFloatingCreateView);
+
+//        mFloatingCreateView = findViewById(R.id.fcv_floating_create_view);
+//        mFloatingCreateView.setVisibility(View.VISIBLE);
+        mFloatingCreateView.setVisibility(View.VISIBLE);
+
+        mFloatingCreateView.setTranslation(350, 350);
+
+
+        RelativeLayout rlTest = findViewById(R.id.rl_test);
+        mScreenWidth = Util.getScreenWidth(this);
+        rlTest.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        mTranslationX = (int) event.getX();
+                        float value = (mTranslationX * 1.0F / mScreenWidth) * 100F;
+                        Log.e(TAG, "onTouch:---- " + value);
+//                        mFloatingCreateView.setTranslation(-moveX,-moveX);
+                        mFloatingCreateView.setTranslation(100 - value, 100 - value);
+                        if (value >= 75) {
+                            mFloatingCreateView.setBackgroundSelected();
+                        }else {
+                            mFloatingCreateView.setBackgroundNormal();
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        mFloatingCreateView.setTranslation(350, 350);
+                        break;
+                    default:
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     private PermissionListener mPermissionListener = new PermissionListener() {
@@ -125,7 +187,7 @@ public class A_Activity extends BaseActivity {
                 .setLayout(R.layout.layout_esay_float, new OnInvokeView() {
                     @Override
                     public void invoke(View view) {
-                        Log.e(TAG, "invoke: "+view );
+                        Log.e(TAG, "invoke: " + view);
                         FloatingImageView floatingImageView = view.findViewById(R.id.iv_floating);
                         ConversationEntity conversationEntity = ConversationEntity.obtain("https://avatars1.githubusercontent.com/u/24353536?s=460&v=4", 1);
                         floatingImageView.addConversationEntity(conversationEntity);
@@ -158,11 +220,11 @@ public class A_Activity extends BaseActivity {
                 // 设置系统浮窗的出入动画，使用同上
                 .setAppFloatAnimator(new AppFloatDefaultAnimator())
                 // 设置系统浮窗的不需要显示的页面
-                .setFilter(B_Activity.class)
+                .setFilter(B_Activity.class, E_Activity.class)
                 .registerCallbacks(new OnFloatCallbacks() {
                     @Override
                     public void createdResult(boolean b, String s, View view) {
-                        Log.e(TAG, "createdResult: "+b+"--"+s+"v"+view );
+                        Log.e(TAG, "createdResult: " + b + "--" + s + "v" + view);
                     }
 
                     @Override
@@ -172,17 +234,17 @@ public class A_Activity extends BaseActivity {
 
                     @Override
                     public void hide(View view) {
-                        Log.e(TAG, "hide: "+view );
+                        Log.e(TAG, "hide: " + view);
                     }
 
                     @Override
                     public void dismiss() {
-                        Log.e(TAG, "dismiss: " );
+                        Log.e(TAG, "dismiss: ");
                     }
 
                     @Override
                     public void touchEvent(View view, MotionEvent motionEvent) {
-                        Log.e(TAG, "touchEvent: " );
+                        Log.e(TAG, "touchEvent: ");
                         if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                             deleteIfNecessary();
                             hideFloatingDeleteView();
@@ -191,9 +253,9 @@ public class A_Activity extends BaseActivity {
 
                     @Override
                     public void drag(View view, MotionEvent motionEvent) {
-                        Log.e(TAG, "drag: " +motionEvent.getRawX()+"--"+motionEvent.getY());
+                        Log.e(TAG, "drag: " + motionEvent.getRawX() + "--" + motionEvent.getY());
 
-                        showFloatingDeleteView((int) motionEvent.getRawX(),(int) motionEvent.getRawY()-view.getHeight());
+                        showFloatingDeleteView((int) motionEvent.getRawX(), (int) motionEvent.getRawY() - view.getHeight());
 
                     }
 

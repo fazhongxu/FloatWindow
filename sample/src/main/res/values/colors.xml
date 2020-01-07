@@ -5,7 +5,7 @@
     <color name="colorAccent">#E7C1CE</color>
     <color name="colorDelete">#F1A99B</color>
     <color name="colorBackground">#11FF4081</color>
-    <color name="halfTransparent">#0E6C6A6A</color>
+    <color name="halfTransparent">#80000000</color>
     <color name="color_delete_bg">#6F6C6C</color>
 
 </resources>

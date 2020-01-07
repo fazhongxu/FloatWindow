@@ -55,6 +55,9 @@ public class C_Activity extends BaseActivity {
 
     public void get(View view) {
         View v = EasyFloat.getAppFloatView();
+        if (v == null) {
+            return;
+        }
         FloatingImageView floatingImageView = v.findViewById(R.id.iv_floating);
         if (floatingImageView != null) {
             List<ConversationEntity> conversationEntities = floatingImageView.getConversationEntities();
