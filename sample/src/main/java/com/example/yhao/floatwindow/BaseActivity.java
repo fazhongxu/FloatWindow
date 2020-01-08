@@ -1,23 +1,11 @@
 package com.example.yhao.floatwindow;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.LayoutInflaterCompat;
-
 import android.app.Activity;
-import android.content.ComponentName;
-import android.graphics.Rect;
-import android.graphics.RectF;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.example.yhao.fixedfloatwindow.R;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.lzf.easyfloat.EasyFloat;
-import com.yhao.floatwindow.FloatWindow;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -69,7 +57,6 @@ public class BaseActivity extends AppCompatActivity {
      */
     protected void deleteIfNecessary() {
         if (mDeleteIfNecessary) {
-//            FloatWindow.destroy();
             EasyFloat.hideAppFloat();
             EasyFloat.dismissAppFloat();
             mDeleteIfNecessary = false;

@@ -37,12 +37,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_height="200dp"/>
 
-    <com.example.yhao.floatwindow.FloatingCreateView
-        android:id="@+id/fcv_floating_create_view"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

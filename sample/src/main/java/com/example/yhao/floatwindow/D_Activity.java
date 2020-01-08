@@ -2,13 +2,11 @@ package com.example.yhao.floatwindow;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.yhao.fixedfloatwindow.R;
 import com.lzf.easyfloat.EasyFloat;
-import com.yhao.floatwindow.FloatWindow;
-import com.yhao.floatwindow.IFloatWindow;
 
 import java.util.List;
 
@@ -50,20 +46,6 @@ public class D_Activity extends BaseActivity {
             adapter.setConversationEntities(conversationEntities);
             recyclerView.setAdapter(adapter);
         }
-
-       /* IFloatWindow iFloatWindow = FloatWindow.get();
-        if (iFloatWindow == null) {
-            finish();
-            return;
-        }
-        FloatingImageView floatingImageView = (FloatingImageView) iFloatWindow.getView();
-        if (floatingImageView == null) {
-            finish();
-            return;
-        }*/
-        //List<ConversationEntity> conversationEntities = floatingImageView.getConversationEntities();
-//        adapter.setConversationEntities(conversationEntities);
-//        recyclerView.setAdapter(adapter);
     }
 
     private class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
